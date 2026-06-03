@@ -1,0 +1,26 @@
+{
+  "Webflow": [
+    "Webflow task 1",
+    "Webflow task 2",
+    "Webflow task 3",
+    "Webflow task 4",
+    "Webflow task 5",
+    "Webflow task 6"
+  ],
+  "Custom": [
+    "Custom task 1",
+    "Custom task 2",
+    "Custom task 3",
+    "Custom task 4",
+    "Custom task 5",
+    "Custom task 6"
+  ],
+  "OtherLogin": [
+    "Other task 1",
+    "Other task 2",
+    "Other task 3",
+    "Other task 4",
+    "Other task 5",
+    "Other task 6"
+  ]
+}
