@@ -1,0 +1,413 @@
+@import "./tokens.css";
+
+/* ── Generic small-modal shell, shared by all finder modals ─────────── */
+
+.finder-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 20, 15, 0.5);
+  z-index: 400;
+}
+
+.finder-modal {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 401;
+  padding: 18px;
+}
+
+.modal-card {
+  width: min(520px, 92vw);
+  max-height: 88vh;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  padding: 18px 44px 12px 22px;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.modal-title {
+  font-size: 1.02rem;
+  font-weight: 700;
+}
+
+.modal-body {
+  padding: 16px 22px 18px;
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+}
+
+.modal-close:hover {
+  background: var(--bg);
+  color: var(--text-primary);
+}
+
+/* ── Online Finder browser ───────────────────────────────────────────── */
+
+.chats-modal-card {
+  height: min(760px, 92vh);
+}
+
+.online-finder-card {
+  width: min(1200px, 96vw);
+  max-width: min(1200px, 96vw);
+  height: min(84vh, 780px);
+  max-height: min(84vh, 780px);
+}
+
+.online-finder-columns {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  overflow-y: hidden;
+  flex: 1;
+  min-height: 0;
+  border-top: 1px solid var(--border-soft);
+  scroll-behavior: smooth;
+}
+
+.finder-column {
+  min-width: 220px;
+  width: 220px;
+  flex-shrink: 0;
+  overflow-y: auto;
+  border-right: 1px solid var(--border-soft);
+  padding: 6px 0;
+}
+
+.finder-column:last-child {
+  border-right: none;
+}
+
+.finder-col-status {
+  padding: 10px 14px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.finder-col-error {
+  color: var(--overdue-color);
+}
+
+.finder-col-divider {
+  height: 1px;
+  background: var(--border-soft);
+  margin: 4px 0;
+}
+
+.finder-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 10px 6px 12px;
+  cursor: pointer;
+  font-size: 13px;
+  user-select: none;
+  border-radius: var(--radius-sm);
+  margin: 0 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+  color: var(--text-primary);
+}
+
+.finder-item:hover {
+  background: var(--bg);
+}
+
+.finder-item--folder.is-active {
+  background: var(--accent);
+  color: #fff;
+}
+
+.finder-item--folder.is-selected {
+  outline: 1.5px solid var(--accent);
+  outline-offset: -1.5px;
+}
+
+.finder-item--file.is-selected {
+  background: var(--accent-dim);
+  outline: 1.5px solid var(--accent);
+  outline-offset: -1.5px;
+}
+
+.finder-item--file .finder-check {
+  display: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 10px;
+  line-height: 16px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.finder-item--file.is-selected .finder-check {
+  display: block;
+}
+
+.finder-item-icon {
+  font-size: 14px;
+  flex-shrink: 0;
+  width: 18px;
+  text-align: center;
+}
+
+.finder-item-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.finder-item-chevron {
+  opacity: 0.4;
+  font-size: 11px;
+  flex-shrink: 0;
+}
+
+.finder-item-size {
+  font-size: 11px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.online-finder-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-top: 1px solid var(--border-soft);
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  padding: 0 16px;
+  transition: max-height 0.2s ease, opacity 0.2s ease, padding 0.2s ease;
+}
+
+.online-finder-footer.is-visible {
+  max-height: 220px;
+  opacity: 1;
+  padding: 10px 16px;
+}
+
+.online-finder-footer-files {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  flex: 1;
+}
+
+.online-finder-footer-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 9px 3px 8px;
+  border-radius: var(--radius-pill);
+  background: var(--accent-dim);
+  border: 1px solid rgba(63, 174, 102, 0.3);
+  font-size: 12px;
+  color: var(--accent-strong);
+  word-break: break-word;
+}
+
+.online-finder-footer-tag-remove {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 14px;
+  line-height: 1;
+  opacity: 0.6;
+  cursor: pointer;
+  flex-shrink: 0;
+  color: inherit;
+  font-family: inherit;
+}
+
+.online-finder-footer-tag-remove:hover {
+  opacity: 1;
+}
+
+.online-finder-footer-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.online-finder-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  font-family: var(--font);
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+
+.online-finder-btn--ghost {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+}
+
+.online-finder-btn--ghost:hover {
+  background: var(--bg);
+}
+
+.online-finder-btn--primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.online-finder-btn--primary:hover {
+  background: var(--accent-strong);
+  color: #fff;
+}
+
+.online-finder-btn:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* ── File action / install-prompt modals ─────────────────────────────── */
+
+.chat-file-action-modal-card {
+  width: min(420px, 92vw);
+}
+
+.chat-file-action-buttons {
+  display: flex;
+  gap: 10px;
+  padding: 16px 22px 4px;
+  flex-wrap: wrap;
+}
+
+.chat-file-action-footer {
+  padding: 4px 22px 6px;
+  text-align: center;
+}
+
+.chat-file-action-footer-text {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.chat-file-action-footer-link {
+  color: var(--accent-strong);
+  text-decoration: none;
+}
+
+.chat-file-action-footer-link:hover {
+  text-decoration: underline;
+}
+
+.finder-install-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 8px 22px 20px;
+}
+
+.finder-install-icon {
+  font-size: 40px;
+  text-align: center;
+}
+
+.finder-install-intro {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.finder-install-steps {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  padding-left: 18px;
+}
+
+.finder-install-steps li {
+  margin-bottom: 4px;
+}
+
+.finder-install-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ── File Bridge tab (download prompt page) ──────────────────────────── */
+
+.file-bridge-download-card {
+  max-width: 920px;
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  padding: 26px 28px;
+  box-shadow: var(--shadow-sm);
+}
+
+.file-bridge-download-intro {
+  margin: 0 0 16px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.file-bridge-download-steps {
+  margin: 0 0 24px;
+  padding-left: 20px;
+  font-size: 0.88rem;
+  line-height: 1.8;
+}
+
+.file-bridge-download-steps li {
+  margin-bottom: 18px;
+}
+
+.file-bridge-download-steps img {
+  display: block;
+  max-width: 100%;
+  margin-top: 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-soft);
+}
+
+.file-bridge-download-btn {
+  display: inline-flex;
+  margin-top: 8px;
+}

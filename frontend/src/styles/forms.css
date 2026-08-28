@@ -1,0 +1,109 @@
+@import "./tokens.css";
+
+/* Shared "add/edit entity" modal form pattern — used by Password Manager
+   and (in a later pass) Dev Tracker. Reuses .finder-backdrop/.finder-modal
+   for the overlay shell (see finder.css). */
+
+.form-modal-card {
+  width: min(560px, 92vw);
+  max-height: 90vh;
+}
+
+.form-field {
+  margin-bottom: 16px;
+}
+
+.form-field:last-child {
+  margin-bottom: 0;
+}
+
+.form-field-label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  font: inherit;
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  background: var(--surface);
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.form-textarea {
+  min-height: 90px;
+  resize: vertical;
+  font-family: var(--mono);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  margin-top: 22px;
+  flex-wrap: wrap;
+}
+
+.form-actions--spread {
+  justify-content: space-between;
+}
+
+.form-feedback {
+  margin-top: 14px;
+  padding: 9px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+.form-feedback--error {
+  background: var(--overdue-bg);
+  color: var(--overdue-color);
+}
+
+.form-feedback--success {
+  background: var(--accent-dim);
+  color: var(--accent-strong);
+}
+
+.btn--secondary {
+  background: var(--surface);
+  border-color: var(--border);
+  color: var(--text-secondary);
+}
+
+.btn--secondary:hover {
+  border-color: var(--text-muted);
+  color: var(--text-primary);
+}
+
+.btn--danger {
+  background: transparent;
+  border-color: var(--overdue-color);
+  color: var(--overdue-color);
+}
+
+.btn--danger:hover {
+  background: var(--overdue-bg);
+  color: var(--overdue-color);
+}

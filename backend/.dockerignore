@@ -1,0 +1,5 @@
+Api/config.php
+Api/cache/
+features/chat/cache/
+Dockerfile
+.dockerignore

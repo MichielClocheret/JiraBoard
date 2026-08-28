@@ -1,0 +1,51 @@
+services:
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_NAME:-jira_chat}
+      MYSQL_USER: ${DB_USER:-veau}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-veau}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-veau_root}
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_ROOT_PASSWORD:-veau_root}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      # Read by Api/setup.php to pre-fill the setup wizard's database
+      # fields — the wizard still asks for your Jira credentials directly,
+      # nothing Jira-related is ever baked into the image or compose file.
+      DB_HOST: db
+      DB_NAME: ${DB_NAME:-jira_chat}
+      DB_USER: ${DB_USER:-veau}
+      DB_PASSWORD: ${DB_PASSWORD:-veau}
+      # Write config.php into the bind-mounted volume below (see
+      # backend/config_path.php) so it survives `docker compose down`/
+      # rebuilds instead of living only in the container's writable layer.
+      CONFIG_PATH: /var/www/html-config/config.php
+    volumes:
+      - backend_config:/var/www/html-config
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+
+  frontend:
+    build: ./frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "${FRONTEND_PORT:-8080}:80"
+
+volumes:
+  db_data:
+  backend_config:

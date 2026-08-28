@@ -1,10 +1,14 @@
-Api/config.php
-config/config.php
+backend/Api/config.php
 config.php
 
 cache/
-Api/cache/
+backend/Api/cache/
 **/cache/
+
+# Frontend (Vite + React)
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
 
 *.postman_collection.json
 postman_jira_calls_collection.json

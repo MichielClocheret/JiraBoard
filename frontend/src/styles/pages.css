@@ -1,0 +1,778 @@
+@import "./tokens.css";
+
+.section {
+  margin-bottom: 30px;
+}
+
+.section-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.section-title {
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.section-subhead {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.refresh-btn {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--accent-strong);
+  text-decoration: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: inherit;
+}
+
+.refresh-btn:hover {
+  text-decoration: underline;
+}
+
+/* ── Issue columns ────────────────────────────────────── */
+
+.issues-columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.issues-columns--2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.issues-columns--full {
+  grid-template-columns: 1fr;
+}
+
+.issues-col {
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.issues-col--span-2 {
+  grid-column: span 2;
+}
+
+.issues-col-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 16px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.column-toggle-indicator {
+  color: var(--text-muted);
+  font-size: 0.7rem;
+}
+
+.col-count {
+  margin-left: auto;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: var(--border-soft);
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+}
+
+.col-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.dot-todo { background: #f59e0b; }
+.dot-progress { background: var(--progress-color); }
+.dot-done { background: var(--done-color); }
+.dot-feedback { background: var(--accent); }
+.dot-alarm { background: var(--overdue-color); }
+
+.issues-col.is-collapsed .issue-list {
+  display: none;
+}
+
+.issue-list {
+  list-style: none;
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.issue-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 11px 16px;
+  border-top: 1px solid var(--border-soft);
+  cursor: pointer;
+  position: relative;
+}
+
+.issue-item:hover {
+  background: var(--accent-dim);
+}
+
+.issue-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.issue-sum {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.issue-meta,
+.issue-assignee-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.issue-key {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.issue-empty {
+  padding: 20px 16px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  list-style: none;
+}
+
+.issue-item[data-overdue="1"] .issue-sum {
+  color: var(--overdue-color);
+}
+
+.badge-overdue-corner {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+}
+
+/* ── Project grid ─────────────────────────────────────── */
+
+.project-search-wrap {
+  display: flex;
+  gap: 10px;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.project-card {
+  text-align: left;
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: 14px;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.project-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.project-card--inactive {
+  opacity: 0.7;
+}
+
+.project-card-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.project-card-counts {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.project-card[data-extra="1"] {
+  display: none;
+}
+
+.project-grid.expanded .project-card[data-extra="1"] {
+  display: flex;
+}
+
+.show-all-wrap {
+  margin-top: 10px;
+}
+
+.show-all-btn {
+  border: none;
+  background: transparent;
+  color: var(--accent-strong);
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.82rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.show-all-btn svg {
+  transition: transform 0.15s ease;
+}
+
+.show-all-btn.open svg {
+  transform: rotate(180deg);
+}
+
+.search-no-results {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  padding: 8px 0;
+}
+
+/* ── Overview page ────────────────────────────────────── */
+
+.overview-top-row {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 18px;
+  align-items: start;
+}
+
+.overview-chart-wrap {
+  background: var(--surface-dark);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  color: var(--text-on-dark);
+  height: 340px;
+  display: flex;
+}
+
+.overview-chart-wrap canvas {
+  max-height: 100%;
+}
+
+.overview-today-side .issue-list {
+  max-height: 280px;
+}
+
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 12px;
+}
+
+.overview-user-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+}
+
+.overview-user-card:hover {
+  border-color: var(--accent);
+}
+
+.overview-user-card.is-active {
+  border-color: var(--accent);
+  background: var(--accent-dim);
+}
+
+.overview-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.overview-avatar-fallback {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-dim);
+  color: var(--accent-strong);
+  font-weight: 700;
+}
+
+.overview-user-name {
+  font-weight: 600;
+  font-size: 0.88rem;
+  margin-bottom: 4px;
+}
+
+.overview-counts {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.overview-count-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+}
+
+.overview-count-todo { background: var(--todo-bg); color: #b45309; }
+.overview-count-progress { background: var(--progress-bg); color: #1d4ed8; }
+
+.overview-empty {
+  color: var(--text-muted);
+  padding: 24px 0;
+}
+
+.overview-details-section {
+  margin-top: 20px;
+}
+
+/* ── Calendar ─────────────────────────────────────────── */
+
+.calendar-filter-buttons {
+  display: inline-flex;
+  gap: 4px;
+  background: var(--border-soft);
+  padding: 3px;
+  border-radius: var(--radius-pill);
+}
+
+.filter-calender-btn {
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.78rem;
+  padding: 6px 13px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+}
+
+.filter-calender-btn.is-active {
+  background: var(--surface);
+  color: var(--accent-strong);
+  box-shadow: var(--shadow-sm);
+}
+
+.calendar-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.calendar-legend {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: 8px 2px 14px;
+}
+
+.calendar-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.calendar-legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.calendar-legend-dot--todo { background: #f59e0b; }
+.calendar-legend-dot--progress { background: var(--progress-color); }
+.calendar-legend-dot--feedback { background: var(--accent); }
+.calendar-legend-dot--done { background: var(--done-color); }
+
+.fc {
+  --fc-border-color: var(--border-soft);
+  --fc-today-bg-color: var(--accent-dim);
+  --fc-button-bg-color: var(--surface);
+  --fc-button-border-color: var(--border);
+  --fc-button-text-color: var(--text-secondary);
+  --fc-button-active-bg-color: var(--accent);
+  --fc-button-active-border-color: var(--accent);
+  font-family: var(--font);
+}
+
+.fc .fc-toolbar-title {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.fc .fc-button-primary:not(:disabled).fc-button-active,
+.fc .fc-button-primary:not(:disabled):active {
+  background-color: var(--accent);
+  border-color: var(--accent);
+}
+
+.fc-event.evt-todo { background: #f59e0b; border-color: #f59e0b; }
+.fc-event.evt-progress { background: var(--progress-color); border-color: var(--progress-color); }
+.fc-event.evt-done { background: var(--done-color); border-color: var(--done-color); opacity: 0.7; }
+.fc-event.evt-feedback { background: var(--accent); border-color: var(--accent); }
+
+/* ── Alarm / overdue ──────────────────────────────────── */
+
+.alarm-project-card {
+  display: flex;
+}
+
+.alarm-task-count {
+  background: var(--overdue-bg);
+  color: var(--overdue-color);
+  font-weight: 700;
+  font-size: 0.78rem;
+  padding: 2px 9px;
+  border-radius: var(--radius-pill);
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.alarm-empty {
+  padding: 20px 16px;
+  color: var(--accent-strong);
+  font-weight: 600;
+}
+
+/* ── Task modal ───────────────────────────────────────── */
+
+.tm-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 20, 15, 0.5);
+  z-index: 300;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+}
+
+.tm-backdrop.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.tm-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -46%);
+  width: min(560px, calc(100vw - 32px));
+  z-index: 301;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.tm-dialog.is-open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%);
+}
+
+.tm-card {
+  position: relative;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 26px;
+}
+
+.tm-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  border: none;
+  background: transparent;
+  font-size: 1.3rem;
+  line-height: 1;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.tm-title {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.tm-subtitle {
+  color: var(--text-muted);
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  margin-top: 3px;
+}
+
+.tm-body {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.tm-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.tm-label--feedback {
+  color: var(--accent-strong);
+}
+
+.tm-task-title {
+  font-weight: 600;
+}
+
+.tm-section--feedback {
+  background: var(--accent-dim);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+}
+
+.tm-feedback-meta {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.tm-feedback-text {
+  font-size: 0.88rem;
+  white-space: pre-wrap;
+}
+
+.tm-feedback-nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.tm-feedback-arrow {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+}
+
+.tm-feedback-arrow:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.tm-feedback-pos {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* ── Credential / detail rows (Password Manager, Dev Tracker) ────── */
+
+.detail-card {
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 18px 20px;
+  max-width: 560px;
+}
+
+.detail-card-kicker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.detail-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-top: 1px solid var(--border-soft);
+}
+
+.detail-row:first-of-type {
+  border-top: none;
+}
+
+.detail-row-content {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  min-width: 0;
+  flex: 1;
+}
+
+.detail-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.detail-value {
+  font-family: var(--mono);
+  font-size: 0.86rem;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.detail-notes {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  white-space: pre-wrap;
+}
+
+.danger-zone {
+  margin-top: 24px;
+}
+
+/* ── Card list (Password Manager, Dev Tracker project lists) ─────── */
+
+.entity-card-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.entity-card {
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: 13px 16px;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+}
+
+.entity-card:hover {
+  border-color: var(--accent);
+}
+
+.entity-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.entity-card-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.entity-type-badge {
+  font-size: 1rem;
+}
+
+.entity-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+/* ── Coming soon placeholder ──────────────────────────── */
+
+.coming-soon {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-lg);
+  padding: 40px 32px;
+  max-width: 520px;
+}
+
+.coming-soon__badge {
+  background: var(--accent-dim);
+  color: var(--accent-strong);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+}
+
+.coming-soon h2 {
+  font-size: 1.15rem;
+}
+
+.coming-soon p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 900px) {
+  .issues-columns {
+    grid-template-columns: 1fr;
+  }
+  .issues-columns--2 {
+    grid-template-columns: 1fr;
+  }
+  .overview-top-row {
+    grid-template-columns: 1fr;
+  }
+  .issues-col--span-2 {
+    grid-column: span 1;
+  }
+}
